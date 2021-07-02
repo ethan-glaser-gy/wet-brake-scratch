@@ -32,7 +32,7 @@ def cleanMost(df):
 
     # combine, conditionally set max and min, and drop columns as needed
     df = pd.concat([df, temp], axis = 1)
-    conditions = [(df[1].notna()) & (df[4].notna()), (df[5] == 'low'), (df[6].notna())]
+    conditions = [(df[1].notna()) & (df[4].notna()), (df[5] == 'low') | (df[5] == 'no'), (df[6].notna())]
     choices1 = [df[1], 0.0, df[6]]
     choices2 = [df[4], 0.0, df[6]]
     df['c_wet_brake_wind_speed_min'] = np.select(conditions, choices1)
