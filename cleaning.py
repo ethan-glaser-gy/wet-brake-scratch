@@ -25,8 +25,8 @@ def cleanMost(df):
     nonNullCount = len(df.index)
 
     # identify and extract ranges with 2 numbers, 'low', or 1 number with km/h
-    df = df[df['c_wet_brake_wind_speed_range'].str.contains(r'(min: )?(\d*\.?\d*)( (max:|to|til|\-) )(\d*\.?\d*)|(low)|^(\d*\.?\d*)[ ]?km\/h')]
-    temp = df['c_wet_brake_wind_speed_range'].str.extractall(r'(min: )?(\d*\.?\d*)( (max:|to|til|\-) )(\d*\.?\d*)|(low)|^(\d*\.?\d*)[ ]?km\/h')
+    df = df[df['c_wet_brake_wind_speed_range'].str.contains(r'(min: )?(\d*\.?\d*)( (max:|to|til|\-) )(\d*\.?\d*)|(low|no)|^(\d*\.?\d*)[ ]?km\/h')]
+    temp = df['c_wet_brake_wind_speed_range'].str.extractall(r'(min: )?(\d*\.?\d*)( (max:|to|til|\-) )(\d*\.?\d*)|(low|no)|^(\d*\.?\d*)[ ]?km\/h')
     df.reset_index(drop=True, inplace=True)
     temp.reset_index(drop=True, inplace=True)
 
@@ -42,7 +42,7 @@ def cleanMost(df):
 
     df.to_csv("cleaned_wind.csv")
     print("Percent of original data successfully cleaned: " + str(100 * finalCount / totalCount))
-    print("Percent of non null data successfully cleaned: " + str(100 * nonNullCount / totalCount))
+    print("Percent of non null data successfully cleaned: " + str(100 * finalCount / nonNullCount))
 
 
 if __name__ == "__main__":
